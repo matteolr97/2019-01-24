@@ -47,6 +47,11 @@ public class ExtFlightDelaysController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    model.creaGrafo();
+    
+    cmbBoxStati.getItems().addAll(model.getStati());
+    if(cmbBoxStati.getValue()==null)
+    	txtResult.appendText("ERRORE, SELEZIONA UNO STATO");
 
     }
 
