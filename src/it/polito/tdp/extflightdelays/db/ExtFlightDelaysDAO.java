@@ -116,7 +116,7 @@ public class ExtFlightDelaysDAO {
 		}
 	}
 	public int getNumeroDiVoli(String s1, String s2) {
-		String sql = "SELECT COUNT(DISTINCT tail_number) FROM airports AS a1, airports AS a2, flights AS f " + 
+		String sql = "SELECT COUNT(DISTINCT tail_number) as n FROM airports AS a1, airports AS a2, flights AS f " + 
 				"WHERE f.ORIGIN_AIRPORT_ID=a1.ID AND f.DESTINATION_AIRPORT_ID=a2.ID AND a1.STATE=? AND a2.STATE=? ";
 
 		try {
@@ -125,10 +125,9 @@ public class ExtFlightDelaysDAO {
 			st.setString(1, s1);
 			st.setString(2,s2);
 			ResultSet rs = st.executeQuery();
-int count = 0;
-			while (rs.next()) {
-				count ++;
-			}
+			rs.first();
+			int count = rs.getInt("n");
+			
 
 			conn.close();
 			return count;

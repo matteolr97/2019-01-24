@@ -47,14 +47,10 @@ public class ExtFlightDelaysController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	txtResult.clear();
     model.creaGrafo();
-    
-    cmbBoxStati.getItems().addAll(model.getStati());
-    if(cmbBoxStati.getValue()==null)
-    	txtResult.appendText("ERRORE, SELEZIONA UNO STATO");
-
-    }
-
+    txtResult.appendText("Ok, Grafo creato! Seleziona uno stato\n");}
+   
     @FXML
     void doSimula(ActionEvent event) {
 
@@ -62,11 +58,20 @@ public class ExtFlightDelaysController {
 
     @FXML
     void doVisualizzaVelivoli(ActionEvent event) {
+    	txtResult.clear();
+    	String stato = this.cmbBoxStati.getValue();
+    	if(stato != null){
+    		this.txtResult.setText(this.model.getVoli(stato));
+    	} else {
+    		this.txtResult.setText("Devi selezionare uno stato!");
+    	}    	
 
     }
     
     public void setModel(Model model) {
 		this.model = model;	
+	    cmbBoxStati.getItems().addAll(model.getStati());
+
 	}
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
